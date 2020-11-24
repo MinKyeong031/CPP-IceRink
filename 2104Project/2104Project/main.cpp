@@ -14,7 +14,8 @@ void firstmenu();
 void mainpage();
 void firstmenu_time();
 void firstmenu_money();
-
+void secondmenu();
+void secondmenu_ticket();
 
 int main()
 {
@@ -51,6 +52,7 @@ void mainpage() {
 			firstmenu();
 			break;
 		case '2':
+			secondmenu();
 			break;
 		case '3':
 			break;
@@ -88,7 +90,7 @@ void firstmenu_time() {
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 시간";
 	cout << "\n\n\n\n\t\t\t 정기 휴무일 : 매월 1, 3주 월요일";
 	cout << "\n\n\t\t\t 이용 가능한 시간 : 10:00~18:00";
-	cout << "\n\n\t\t\t 정빙 시간표";
+	cout << "\n\n\n\t\t\t 정빙 시간표";
 	cout << "\n\n\n\t\t\t 07:50~08:10 \t\t\t 17:50~18:10";
 	cout << "\n\n\n\t\t\t 09:50~10:10 \t\t\t 19:50~20:10";
 	cout << "\n\n\n\t\t\t 11:50~12:10 \t\t\t 21:50~22:10";
@@ -101,12 +103,42 @@ void firstmenu_money() {
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 가격";
 	cout << "\n\n\n\n\t\t\t 경로 : 65세 이상/ 소인 : 14세 미만";
 	cout << "\n\n\t\t\t 청소년 : 초등학생, 중학생, 고등학생";
-	cout << "\n\n\n\t\t\t\t\t\t\t소인/경로";
+	cout << "\n\n\n\t\t\t\t\t    ①입장료\t②스케이트화 대여료";
+	cout << "\n\n\t\t\t\t\t\t소인/경로\t\t청소년\t\t    성인";
+	cout << "\n\n\n\t\t\t\t  ①  \t\t  2000원\t\t3000원\t\t   4000원";
+	cout << "\n\n\n\t\t\t\t  ②  \t\t  2000원\t\t3000원\t\t   4000원";
+	cout << "\n\n\n\t\t\t\t ①+②\t\t  3000원\t\t5000원\t\t   7000원";
+	cout << "\n\n\n\t\t\t    단체(20인 이상)\t\t\t전체 가격의 10% 추가 할인";
 
-	if (getch() == 'z') {
+	char ch;
+	cin >> ch;
+	if (ch == 'z') {
+		system("cls");
+		mainpage();
+	}
+
+	cin.ignore();
+	cin.get();
+}
+
+void secondmenu() {
+	char ch;
+	cout << "이전 페이지(z)";
+	secondmenu_ticket();
+	cin >> ch;
+	if (ch == 'z') {
 		system("cls");
 		mainpage();
 	}
 	cin.ignore();
 	cin.get();
+}
+
+void secondmenu_ticket() {
+	cout << "\n\n\n\t\t\t\t\t\t\t   매표";
+	cout << "\n\n\n\t\t\t\t\t   ①입장료\t②스케이트화 대여료";
+	cout << "\n\n\n\t\t\t\t\t소인/경로\t\t청소년\t\t  성인";
+	cout << "\n\n\n\t\t\t  ①  \t\t ⓐ2000원\t\tⓑ3000원\tⓒ4000원";
+	cout << "\n\n\n\t\t\t  ②  \t\t ⓓ2000원\t\tⓔ3000원\tⓕ4000원";
+	cout << "\n\n\n\t\t\t ①+②\t\t ⓖ3000원\t\tⓗ5000원\tⓘ7000원";
 }
