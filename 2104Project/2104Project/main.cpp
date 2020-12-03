@@ -6,8 +6,7 @@
 #include <ctime>
 using namespace std;
 
-int endday[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-
+void CursorView(char show);
 void start();
 void firstmenu();
 void mainpage();
@@ -22,21 +21,39 @@ void fourthmenu_choice();
 void fourthmenu_choice1();
 void fourthmenu_choice2();
 
+int endday[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
 int main()
 {
+	CursorView(false);
 	system("mode con cols = 300 lines 50 | title Ice-Rink");
 	start();
 	return 0;
 }
 
+//커서 깜빡임 표시 X 함수
+void CursorView(char show) {
+	HANDLE hConsole;
+	CONSOLE_CURSOR_INFO ConsoleCursor;
+
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	ConsoleCursor.bVisible = show;
+	ConsoleCursor.dwSize = 1;
+
+	SetConsoleCursorInfo(hConsole, &ConsoleCursor);
+}
+
+//시작 로딩 화면
 void start()
 {
 	cout << "\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t     I C E  R I N K";
 	cout << "\n\n\n\n\t\t\t\t\t\t       2104 김민경";
-	Sleep(100);
+	Sleep(2000);
 	mainpage();
 }
 
+//메인 메뉴 선택 화면
 void mainpage() {
 	char ch;
 	do
@@ -70,11 +87,10 @@ void mainpage() {
 			cout << "\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t  프로그램을 종료합니다.\n\n\n\n\n\n";
 			break;
 		}
-		cin.ignore();
-		cin.get();
 	} while (ch != '5');
 }
 
+//이용시간 안내 화면
 void firstmenu() {
 	char ch;
 	cout << "이전 페이지(z), 다음페이지(a)";
@@ -88,29 +104,27 @@ void firstmenu() {
 		system("cls");
 		firstmenu_money();
 	}
-	cin.ignore();
-	cin.get();
 }
-
+//이용시간 안내 화면2
 void firstmenu_time() {
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 시간";
-	cout << "\n\n\n\n\t\t\t 정기 휴무일 : 매월 1, 3주 월요일";
-	cout << "\n\n\t\t\t 이용 가능한 시간 : 10:00~18:00";
-	cout << "\n\n\n\t\t\t 정빙 시간표";
-	cout << "\n\n\n\t\t\t 07:50~08:10 \t\t\t 17:50~18:10";
-	cout << "\n\n\n\t\t\t 09:50~10:10 \t\t\t 19:50~20:10";
-	cout << "\n\n\n\t\t\t 11:50~12:10 \t\t\t 21:50~22:10";
-	cout << "\n\n\n\t\t\t 13:50~14:10 \t\t\t 23:50~00:10";
-	cout << "\n\n\n\t\t\t 15:50~16:10";
+	cout << "\n\n\n\n\t\t\t\t 정기 휴무일 : 매월 1, 3주 월요일";
+	cout << "\n\n\t\t\t\t 이용 가능한 시간 : 10:00~18:00";
+	cout << "\n\n\n\t\t\t\t 정빙 시간표";
+	cout << "\n\n\n\t\t\t\t 07:50~08:10 \t\t\t 17:50~18:10";
+	cout << "\n\n\n\t\t\t\t 09:50~10:10 \t\t\t 19:50~20:10";
+	cout << "\n\n\n\t\t\t\t 11:50~12:10 \t\t\t 21:50~22:10";
+	cout << "\n\n\n\t\t\t\t 13:50~14:10 \t\t\t 23:50~00:10";
+	cout << "\n\n\n\t\t\t\t 15:50~16:10";
 }
-
+//이용시간 안내 화면3
 void firstmenu_money() {
 	cout << "이전 페이지(z)";
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 가격";
-	cout << "\n\n\n\n\t\t\t 경로 : 65세 이상/ 소인 : 14세 미만";
-	cout << "\n\n\t\t\t 청소년 : 초등학생, 중학생, 고등학생";
+	cout << "\n\n\n\t\t\t    경로 : 65세 이상/ 소인 : 14세 미만";
+	cout << "\n\n\t\t\t    청소년 : 초등학생, 중학생, 고등학생";
 	cout << "\n\n\n\t\t\t\t\t    ①입장료\t②스케이트화 대여료";
-	cout << "\n\n\t\t\t\t\t\t소인/경로\t\t청소년\t\t    성인";
+	cout << "\n\n\n\t\t\t\t\t\t소인/경로\t\t청소년\t\t    성인";
 	cout << "\n\n\n\t\t\t\t  ①  \t\t  2000원\t\t3000원\t\t   4000원";
 	cout << "\n\n\n\t\t\t\t  ②  \t\t  2000원\t\t3000원\t\t   4000원";
 	cout << "\n\n\n\t\t\t\t ①+②\t\t  3000원\t\t5000원\t\t   7000원";
@@ -122,11 +136,12 @@ void firstmenu_money() {
 		system("cls");
 		mainpage();
 	}
-
-	cin.ignore();
-	cin.get();
 }
 
+
+
+
+//매표 화면
 void secondmenu() {
 	char ch;
 	cout << "이전 페이지(z)";
@@ -136,10 +151,8 @@ void secondmenu() {
 		system("cls");
 		mainpage();
 	}
-	cin.ignore();
-	cin.get();
 }
-
+//매표 화면2
 void secondmenu_ticket() {
 	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0;
 	cout << "\n\n\n\t\t\t\t\t\t\t   매표";
@@ -154,6 +167,10 @@ void secondmenu_ticket() {
 	mainpage();
 }
 
+
+
+
+//단체 강습 화면
 void thirdmenu() {
 	char ch;
 	cout << "이전 페이지(z)";
@@ -163,10 +180,8 @@ void thirdmenu() {
 		system("cls");
 		mainpage();
 	}
-	cin.ignore();
-	cin.get();
 }
-
+//단체 강습 화면2
 void thirdmenu_class() {
 	int class_day = 0, class_time = 0;
 	string class_major = "";
@@ -181,6 +196,10 @@ void thirdmenu_class() {
 	mainpage();
 }
 
+
+
+
+//대관 안내 화면
 void fourthmenu() {
 	char ch;
 	cout << "이전 페이지(z)";
@@ -198,16 +217,14 @@ void fourthmenu() {
 		system("cls");
 		fourthmenu_choice2();
 	}
-	cin.ignore();
-	cin.get();
 }
-
+//대관 안내 화면2
 void fourthmenu_choice() {
 	cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t   아이스링크장 대관";
 	cout << "\n\n\n\n\t\t\t\t\t\t   1. 대관 시간 / 가격";
 	cout << "\n\n\t\t\t\t\t\t       2. 대관 신청";
 }
-
+//대관 안내 화면3
 void fourthmenu_choice1() {
 	cout << "이전 페이지(z)";
 	cout << "\n\n\n\n\n\t\t\t\t\t\t   대관 신청 / 가격";
@@ -224,11 +241,24 @@ void fourthmenu_choice1() {
 		system("cls");
 		mainpage();
 	}
+}
+//대관 안내 화면4
+void fourthmenu_choice2() {
+	print_cal();
 
-	cin.ignore();
-	cin.get();
+	int lent_day = 0;
+	int lent_time = 0;
+
+
+	cout << "\n\n\n\n\n\n\t\t\t\t\t\t날짜 / 시간 (띄어쓰기로 구분)\n\n\t\t\t\t\t\t";
+	cin >> lent_day >> lent_time;
+	mainpage();
 }
 
+
+
+
+//달력 출력 화면
 bool yoonyear(int y)
 {
 	if (y % 4 != 0) {
@@ -315,16 +345,4 @@ void print_cal() {
 	}
 	cout << "\t\t\t\t\t\t";
 	printcalendar(year, month);
-}
-
-void fourthmenu_choice2() {
-	print_cal();
-
-	int lent_day = 0;
-	int lent_time = 0;
-
-
-	cout << "\n\n\n\n\n\n\t\t\t\t\t\t날짜 / 시간 (띄어쓰기로 구분)\n\n\t\t\t\t\t\t";
-	cin >> lent_day >> lent_time;
-	mainpage();
 }
