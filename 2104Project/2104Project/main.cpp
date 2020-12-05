@@ -19,15 +19,23 @@ void secondmenu();
 void thirdmenu();
 void fourthmenu();
 void fifthmenu();
+void fifthmenu_ticket();
+void fifthmenu_class();
+void fifthmenu_lent();
 
 int endday[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 int main()
 {
+	//커서 깜빡임 X
 	cursor_view(false);
+	//스크롤바 없애기
 	remove_scrollbar();
+	//콘솔 창 크기, 타이틀
 	system("mode con cols = 300 lines 50 | title Ice-Rink");
+	//시작 로딩 함수
 	start();
+
 	return 0;
 }
 
@@ -62,7 +70,11 @@ void start()
 {
 	cout << "\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t     I C E  R I N K";
 	cout << "\n\n\n\n\t\t\t\t\t\t       2104 김민경";
-	Sleep(2000);
+	
+	//1초 뒤 메인 메뉴 선택 화면
+	Sleep(1000);
+
+	system("cls");
 	mainpage();
 }
 
@@ -71,7 +83,6 @@ void mainpage() {
 	char ch;
 	do
 	{
-		system("cls");
 		cout << "\n\n\n\n\n\n\t\t\t\t\t\t\tMAIN MENU";
 		cout << "\n\n\n\n\t\t\t\t\t\t   1. 이용 시간 / 가격";
 		cout << "\n\n\t\t\t\t\t\t\t 2. 매표";
@@ -114,24 +125,25 @@ void mainpage() {
 //이용시간 안내 화면
 void firstmenu() {
 	char ch;
-	cout << "이전 페이지(z), 다음페이지(a)";
+
 	firstmenu_time();
+
+	cout << "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 	cin >> ch;
-	if (ch == 'z') {
-		system("cls");
-		mainpage();
-	}
-	else if (ch == 'a') {
+
+	switch (ch) {
+	case 'a':
 		system("cls");
 		firstmenu_money();
-	}
-	else {
+		break;
+	default:
 		system("cls");
 		mainpage();
 	}
 }
 //이용시간 안내 화면2
 void firstmenu_time() {
+	cout << "이전 페이지(z), 다음페이지(a)";
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 시간";
 	cout << "\n\n\n\n\t\t\t\t 정기 휴무일 : 매월 1, 3주 월요일";
 	cout << "\n\n\t\t\t\t 이용 가능한 시간 : 10:00~18:00";
@@ -141,10 +153,11 @@ void firstmenu_time() {
 	cout << "\n\n\n\t\t\t\t 11:50~12:10 \t\t\t 21:50~22:10";
 	cout << "\n\n\n\t\t\t\t 13:50~14:10 \t\t\t 23:50~00:10";
 	cout << "\n\n\n\t\t\t\t 15:50~16:10";
-	cout << "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
 }
 //이용시간 안내 화면3
 void firstmenu_money() {
+	char ch;
+
 	cout << "이전 페이지(z)";
 	cout << "\n\n\n\t\t\t\t\t\t\t이용 가격";
 	cout << "\n\n\n\t\t\t    경로 : 65세 이상/ 소인 : 14세 미만";
@@ -155,16 +168,18 @@ void firstmenu_money() {
 	cout << "\n\n\n\t\t\t\t  ②  \t\t  2000원\t\t3000원\t\t   4000원";
 	cout << "\n\n\n\t\t\t\t ①+②\t\t  3000원\t\t5000원\t\t   7000원";
 	cout << "\n\n\n\t\t\t    단체(20인 이상)\t\t\t전체 가격의 10% 추가 할인";
+
 	cout << "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
-	char ch;
 	cin >> ch;
-	if (ch == 'z') {
+
+	switch (ch) {
+	case 'z':
 		system("cls");
 		mainpage();
-	}
-	else {
+		break;
+	default:
 		system("cls");
-		mainpage();
+		firstmenu_time();
 	}
 }
 
@@ -173,42 +188,55 @@ void firstmenu_money() {
 
 //매표 화면
 void secondmenu() {
+	cout << "하나라도 0을 입력할 시 화면 취소";
+
 	string user_name;
 	char choice;
 	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0, member = 0, sum = 0;
+
 	cout << "\n\n\n\t\t\t\t\t\t\t   매표";
 	cout << "\n\n\n\t\t\t\t\t   ①입장료\t②스케이트화 대여료";
 	cout << "\n\n\n\t\t\t\t\t소인/경로\t\t청소년\t\t  성인";
 	cout << "\n\n\n\t\t\t  ①  \t\t ⓐ2000원\t\tⓑ3000원\tⓒ4000원";
 	cout << "\n\n\n\t\t\t  ②  \t\t ⓓ2000원\t\tⓔ3000원\tⓕ4000원";
 	cout << "\n\n\n\t\t\t ①+②\t\t ⓖ3000원\t\tⓗ5000원\tⓘ7000원";
+
 	cout << "\n\n\n\t\t\t\t\t\t 이름 >> ";
 	cin >> user_name;
+
 	cout << "\n\t\t\t\t\t\t ⓐ / ⓑ / ⓒ >> ";
 	cin >> ticket_a >> ticket_b >> ticket_c;
 	cout << "\n\t\t\t\t\t\t ⓓ / ⓔ / ⓕ >> ";
 	cin >> ticket_d >> ticket_e >> ticket_f;
 	cout << "\n\t\t\t\t\t\t ⓖ / ⓗ / ⓘ >> ";
 	cin >> ticket_g >> ticket_h >> ticket_i;
-	if (user_name == "0" && ticket_a == 0 && ticket_b == 0 && ticket_c == 0 && ticket_d == 0 && ticket_e == 0 && ticket_f == 0 && ticket_g == 0 && ticket_h == 0 && ticket_i == 0) {
+
+	if (ticket_a == 0 && ticket_b == 0 && ticket_c == 0 && ticket_d == 0 && ticket_e == 0 && ticket_f == 0 && ticket_g == 0 && ticket_h == 0 && ticket_i == 0) {
 		cout << "\n\t\t\t\t\t\t\t매표 실패";
-		Sleep(1000);
-		system("cls");
-		mainpage();
 	}
 	else {
+		//인원 수 구함
 		member = ticket_a + ticket_b + ticket_c + ticket_d + ticket_e + ticket_f + ticket_g + ticket_h + ticket_i;
+		//총 금액 구함
 		sum = ticket_a * 2000 + ticket_b * 3000 + ticket_c * 4000 + ticket_d * 2000 + ticket_e * 3000 + ticket_f * 4000 + ticket_g * 3000 + ticket_h * 5000 + ticket_i * 7000;
+
+		//20인 이상 할인 10%
 		if (member >= 20) {
 			sum *= 0.9;
 		}
-		ofstream fout{ "secondmenu.txt", ios::app };
-		fout << user_name << setw(10) << ticket_a << setw(10) << ticket_b << setw(10) << ticket_c << setw(10) << ticket_d << setw(10) << ticket_e 
-			<< setw(10) << ticket_f << setw(10) << ticket_g << setw(10) << ticket_h << setw(10) <<  ticket_i << setw(10) << sum << endl;
-		fout.close();
+
+		//파일 입력
+		ofstream secondtxt{ "secondmenu.txt", ios::app };
+		secondtxt << user_name << "\t" << ticket_a << "\t" << ticket_b << "\t" << ticket_c << "\t" << ticket_d << "\t" << ticket_e
+			<< "\t" << ticket_f << "\t" << ticket_g << "\t" << ticket_h << "\t" <<  ticket_i << "\t" << sum << endl;
+		secondtxt.close();
+
 		cout << "\n\t\t\t\t\t\t\t매표 성공";
-		Sleep(1000);
 	}
+	Sleep(1000);
+
+	system("cls");
+	mainpage();
 }
 
 
@@ -217,8 +245,10 @@ void secondmenu() {
 //단체 강습 화면
 void thirdmenu() {
 	cout << "하나라도 0을 입력할 시 화면 취소";
+
 	int class_day = 0, class_time = 0, sum = 0;
 	string class_major = "", user_name;
+
 	cout << "\n\n\n\t\t\t\t\t\t\t\t단체 강습";
 	cout << "\n\n\n\t\t\t\t\t\t①월, 목\t ②화, 금\t    ③토";
 	cout << "\n\n\n\t\t\t\t\t       10시  14시\t 10시  14시\t  10시  14시";
@@ -227,16 +257,17 @@ void thirdmenu() {
 
 	cout << "\n\n\n\n\n\t\t\t\t\t\t 이름 >> ";
 	cin >> user_name;
+
 	cout << "\n\n\n\t\t\t\t\t\t 요일 / 시간 / 종목 >> ";
 	cin >> class_day >> class_time >> class_major;
-	if (user_name == "0" || class_day == 0 || class_time == 0 || class_major == "0") {
+
+	if (class_day == 0 || class_time == 0 || class_major == "0") {
 		cout << "\n\t\t\t\t\t\t\t신청 실패";
-		Sleep(1000);
-		system("cls");
-		mainpage();
 	}
 	else {
+		//강습 요일
 		string class_d;
+
 		if (class_day == 1) {
 			class_d = "월, 목";
 		}
@@ -246,18 +277,25 @@ void thirdmenu() {
 		else {
 			class_d = "토";
 		}
+
+		//강습료
 		if (class_day == 3) {
 			sum = 40000;
 		}
 		else {
 			sum = 70000;
 		}
-		ofstream fout{ "thirdmenu.txt", ios::app };
-		fout << user_name << setw(10) << class_d << setw(10) << class_time << setw(10) << class_major << setw(10) << sum << endl;
-		fout.close();
+
+		//파일 입력
+		ofstream thirdtxt{ "thirdmenu.txt", ios::app };
+		thirdtxt << user_name << "\t" << class_d << "\t" << class_time << "\t" << class_major << "\t" << sum << endl;
+		thirdtxt.close();
+
 		cout << "\n\n\n\t\t\t\t\t\t\t신청 성공";
-		Sleep(1000);
 	}
+	Sleep(1000);
+
+	system("cls");
 	mainpage();
 }
 
@@ -357,36 +395,45 @@ void print_cal() {
 
 //대관 안내 화면
 void fourthmenu() {
-	int offset;
-	int line, price = 0;
-	string search1, search2;
 	cout << "모두 0을 입력할 시 화면 취소";
+
+	string user_name;
+	int lent_day = 0, lent_time = 0;
+
+	//달력 출력
 	print_cal();
+	
 	cout << "\n\t\t\t\t\t\t    시간\t\t  가격";
 	cout << "\n\n\t\t\t\t\t\t06:00~08:00\t\t150000원";
 	cout << "\n\n\t\t\t\t\t\t08:00~10:00\t\t200000원";
 	cout << "\n\n\t\t\t\t\t\t18:00~20:00\t\t250000원";
 	cout << "\n\n\t\t\t\t\t\t20:00~22:00\t\t200000원";
 	cout << "\n\n\t\t\t\t\t\t22:00~00:00\t\t150000원";
-	int lent_day = 0, lent_time = 0, sum = 0;
-	string user_name;
 
 	cout << "\n\n\n\t\t\t\t\t\t 이름 / 날짜 / 시간 >> ";
 	cin >> user_name >> lent_day >> lent_time;
+
 	if (user_name == "0"&& lent_day == 0 && lent_time == 0) {
 		cout << "\n\t\t\t\t\t\t\t대관 실패";
-		Sleep(1000);
-		system("cls");
-		mainpage();
 	}
 	else {
+		bool flag = true;
+
+		string line;
+		int offset;
+
 		time_t curr_time;
 		struct tm* curr_tm;
 		curr_time = time(NULL);
 		curr_tm = localtime(&curr_time);
 
 		string date = to_string(curr_tm->tm_year + 1900) + "." + to_string(curr_tm->tm_mon + 1) + "." + to_string(lent_day);
+		string search1 = date;
+		string search2 = to_string(lent_time);
 
+		int price = 0;
+
+		//대관료
 		if (lent_time == 6 || lent_time == 22) {
 			price = 150000;
 		}
@@ -397,17 +444,13 @@ void fourthmenu() {
 			price = 250000;
 		}
 
-		bool flag = true;
-		string line;
-		int offset;
-		search1 = date;
-		search2 = to_string(lent_time);
-		ifstream fin;
-		fin.open("fourthmenu.txt");
+		//대관이 이미 완료된 상태일 때
+		ifstream fourthtxt_i;
+		fourthtxt_i.open("fourthmenu.txt");
 
-		while (!fin.eof())
+		while (!fourthtxt_i.eof())
 		{
-			getline(fin, line);
+			getline(fourthtxt_i, line);
 			if ((offset = line.find(search1, 0)) != string::npos) {
 				if ((offset = line.find(search2, 0)) != string::npos) {
 					flag = false;
@@ -415,23 +458,27 @@ void fourthmenu() {
 			}
 		}
 
+		//선택한 날짜가 이미 지났다면
 		if (curr_tm->tm_mday >= lent_day) {
 			flag = false;
 		}
 
 		if (flag) {
-			ofstream fout{ "fourthmenu.txt", ios::app };
-			fout << user_name << setw(10) << date << setw(10) << lent_time << setw(10) << price << endl;
-			fout.close();
+			//파일 입력
+			ofstream fourthtxt_o{ "fourthmenu.txt", ios::app };
+			fourthtxt_o << user_name << "\t\t" << date << "\t" << lent_time << "\t" << price << endl;
+			fourthtxt_o.close();
 
 			cout << "\n\n\n\t\t\t\t\t\t\t  대관 성공";
 		}
 		else {
 			cout << "\n\n\n\t\t\t\t\t\t\t  대관 불가";
 		}
-		fin.close();
-		Sleep(1000);
+		fourthtxt_i.close();
 	}
+	Sleep(1000);
+
+	system("cls");
 	mainpage();
 }
 
@@ -440,36 +487,189 @@ void fourthmenu() {
 
 //기록 화면
 void fifthmenu() {
+	char ch;
+
+	cout << "이전 페이지(z)";
+	cout << "\n\n\n\n\n\n\n\n\t\t\t\t\t\t       1. 매표 기록";
+	cout << "\n\n\t\t\t\t\t\t       2. 강습 기록";
+	cout << "\n\n\t\t\t\t\t\t       3. 대관 기록";
+
+	cout << "\n\n\n\n\t\t\t\t\t\t   선택한 메뉴(1~3) : ";
+	cin >> ch;
+
+	system("cls");
+	switch (ch)
+	{
+	case '1':
+		fifthmenu_ticket();
+		break;
+	case '2':
+		fifthmenu_class();
+		break;
+	case '3':
+		fifthmenu_lent();
+		break;
+	default:
+		system("cls");
+		mainpage();
+		break;
+	}
+}
+//매표 기록 화면
+void fifthmenu_ticket() {
 	string name;
 	char choice;
+
 	cout << "이전 페이지(z), 다시(a)";
-	cout << "\n\n\n\n\n\t\t\t\t\t\t   이름 입력 >> ";
+	cout << "\n\t\t\t\t\t   ①입장료\t②스케이트화 대여료";
+	cout << "\n\n\t\t\t\t\t소인/경로\t\t청소년\t\t  성인";
+	cout << "\n\n\t\t\t  ①  \t\t ⓐ2000원\t\tⓑ3000원\tⓒ4000원";
+	cout << "\n\n\t\t\t  ②  \t\t ⓓ2000원\t\tⓔ3000원\tⓕ4000원";
+	cout << "\n\n\t\t\t ①+②\t\t ⓖ3000원\t\tⓗ5000원\tⓘ7000원";
+
+	cout << "\n\n =======================================================================================================================\n";
+	cout << "\n\t\t\t\t\t\t   이름 입력 >> ";
 	cin >> name;
+
 	if (name == "z") {
-		system("cls");
-		mainpage();
-	}
-	else {
-		//이름에 해당하는 내용 출력
-		//매표 기록
-		cout << "\n\n\t\t\t\t\t  =================== 매표 기록 ===================";
-		//강습 기록
-		cout << "\n\n\t\t\t\t\t  =================== 강습 기록 ===================";
-		//대관 기록
-		cout << "\n\n\t\t\t\t\t  =================== 대관 기록 ===================";
-	}
-	cout << "\n\n\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
-	cin >> choice;
-	if (choice == 'z') {
-		system("cls");
-		mainpage();
-	}
-	else if (choice == 'a') {
 		system("cls");
 		fifthmenu();
 	}
 	else {
+		//이름에 해당하는 내용 출력
+		//매표 기록
+		cout << "\n =======================================================================================================================\n";
+		cout << "\n\t\t이름\tⓐ\tⓑ\tⓒ\tⓓ\tⓔ\tⓕ\tⓖ\tⓗ\tⓘ\t총 금액\n\n";
+
+		string line;
+		int offset;
+
+		//파일 출력
+		ifstream secondtxt_i;
+		secondtxt_i.open("secondmenu.txt");
+
+		while (!secondtxt_i.eof())
+		{
+			getline(secondtxt_i, line);
+			if ((offset = line.find(name, 0)) != string::npos) {
+				cout << "\t\t" << line << "\n\n";
+			}
+		}
+		secondtxt_i.close();
+	}
+
+	cout << "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+	cin >> choice;
+
+	switch (choice) {
+	case 'a':
 		system("cls");
-		mainpage();
+		fifthmenu_ticket();
+		break;
+	default:
+		system("cls");
+		fifthmenu();
+	}
+}
+//강습 기록 화면
+void fifthmenu_class() {
+	string name;
+	char choice;
+
+	cout << "이전 페이지(z), 다시(a)";
+
+	cout << "\n\n\n =======================================================================================================================\n";
+	cout << "\n\t\t\t\t\t\t   이름 입력 >> ";
+	cin >> name;
+
+	if (name == "z") {
+		system("cls");
+		fifthmenu();
+	}
+	else {
+		//이름에 해당하는 내용 출력
+		//강습 기록
+		cout << "\n =======================================================================================================================\n";
+		cout << "\n\t\t\t\t\t이름\t요일\t시간\t종목\t금액\n\n";
+
+		string line;
+		int offset;
+
+		//파일 출력
+		ifstream thirdtxt_i;
+		thirdtxt_i.open("thirdmenu.txt");
+
+		while (!thirdtxt_i.eof())
+		{
+			getline(thirdtxt_i, line);
+			if ((offset = line.find(name, 0)) != string::npos) {
+				cout << "\t\t\t\t\t" << line << "\n\n";
+			}
+		}
+		thirdtxt_i.close();
+	}
+
+	cout << "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+	cin >> choice;
+
+	switch (choice) {
+	case 'a':
+		system("cls");
+		fifthmenu_class();
+		break;
+	default:
+		system("cls");
+		fifthmenu();
+	}
+}
+//대관 기록 화면
+void fifthmenu_lent() {
+	string name;
+	char choice;
+
+	cout << "이전 페이지(z), 다시(a)";
+
+	cout << "\n\n\n =======================================================================================================================\n";
+	cout << "\n\t\t\t\t\t\t   이름 입력 >> ";
+	cin >> name;
+
+	if (name == "z") {
+		system("cls");
+		fifthmenu();
+	}
+	else {
+		//이름에 해당하는 내용 출력
+		//대관 기록
+		cout << "\n =======================================================================================================================\n";
+		cout << "\n\t\t\t\t\t이름\t   요일   \t시간\t금액\n\n";
+
+		string line;
+		int offset;
+
+		//파일 출력
+		ifstream fourthtxt_i;
+		fourthtxt_i.open("fourthmenu.txt");
+
+		while (!fourthtxt_i.eof())
+		{
+			getline(fourthtxt_i, line);
+			if ((offset = line.find(name, 0)) != string::npos) {
+				cout << "\t\t\t\t\t" << line << "\n\n";
+			}
+		}
+		fourthtxt_i.close();
+	}
+
+	cout << "\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
+	cin >> choice;
+
+	switch (choice) {
+	case 'a':
+		system("cls");
+		fifthmenu_lent();
+		break;
+	default:
+		system("cls");
+		fifthmenu();
 	}
 }
