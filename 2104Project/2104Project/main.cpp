@@ -184,13 +184,15 @@ void secondmenu() {
 	cout << "\n\n\n\t\t\t ①+②\t\t ⓖ3000원\t\tⓗ5000원\tⓘ7000원";
 	cout << "\n\n\n\t\t\t\t\t\t 이름 >> ";
 	cin >> user_name;
-	cout << "\n\n\n\t\t\t\t\t\t ⓐ / ⓑ / ⓒ >> ";
+	cout << "\n\t\t\t\t\t\t ⓐ / ⓑ / ⓒ >> ";
 	cin >> ticket_a >> ticket_b >> ticket_c;
 	cout << "\n\t\t\t\t\t\t ⓓ / ⓔ / ⓕ >> ";
 	cin >> ticket_d >> ticket_e >> ticket_f;
 	cout << "\n\t\t\t\t\t\t ⓖ / ⓗ / ⓘ >> ";
 	cin >> ticket_g >> ticket_h >> ticket_i;
 	if (user_name == "0" && ticket_a == 0 && ticket_b == 0 && ticket_c == 0 && ticket_d == 0 && ticket_e == 0 && ticket_f == 0 && ticket_g == 0 && ticket_h == 0 && ticket_i == 0) {
+		cout << "\n\t\t\t\t\t\t\t매표 실패";
+		Sleep(1000);
 		system("cls");
 		mainpage();
 	}
@@ -200,10 +202,11 @@ void secondmenu() {
 		if (member >= 20) {
 			sum *= 0.9;
 		}
-		ofstream fout{ "secondmenu.txt" };
+		ofstream fout{ "secondmenu.txt", ios::app };
 		fout << user_name << setw(10) << ticket_a << setw(10) << ticket_b << setw(10) << ticket_c << setw(10) << ticket_d << setw(10) << ticket_e 
 			<< setw(10) << ticket_f << setw(10) << ticket_g << setw(10) << ticket_h << setw(10) <<  ticket_i << setw(10) << sum << endl;
 		fout.close();
+		cout << "\n\t\t\t\t\t\t\t매표 성공";
 		Sleep(1000);
 	}
 }
@@ -227,6 +230,8 @@ void thirdmenu() {
 	cout << "\n\n\n\t\t\t\t\t\t 요일 / 시간 / 종목 >> ";
 	cin >> class_day >> class_time >> class_major;
 	if (user_name == "0" || class_day == 0 || class_time == 0 || class_major == "0") {
+		cout << "\n\t\t\t\t\t\t\t신청 실패";
+		Sleep(1000);
 		system("cls");
 		mainpage();
 	}
@@ -247,9 +252,10 @@ void thirdmenu() {
 		else {
 			sum = 70000;
 		}
-		ofstream fout{ "thirdmenu.txt" };
+		ofstream fout{ "thirdmenu.txt", ios::app };
 		fout << user_name << setw(10) << class_d << setw(10) << class_time << setw(10) << class_major << setw(10) << sum << endl;
 		fout.close();
+		cout << "\n\n\n\t\t\t\t\t\t\t신청 성공";
 		Sleep(1000);
 	}
 	mainpage();
@@ -353,7 +359,7 @@ void print_cal() {
 void fourthmenu() {
 	int offset;
 	int line, price = 0;
-	string search;
+	string search1, search2;
 	cout << "모두 0을 입력할 시 화면 취소";
 	print_cal();
 	cout << "\n\t\t\t\t\t\t    시간\t\t  가격";
@@ -368,11 +374,12 @@ void fourthmenu() {
 	cout << "\n\n\n\t\t\t\t\t\t 이름 / 날짜 / 시간 >> ";
 	cin >> user_name >> lent_day >> lent_time;
 	if (user_name == "0"&& lent_day == 0 && lent_time == 0) {
+		cout << "\n\t\t\t\t\t\t\t대관 실패";
+		Sleep(1000);
 		system("cls");
 		mainpage();
 	}
 	else {
-		//TODO 이미 대관 완료상태이면 대관 불가능하게 만들어야 함.
 		time_t curr_time;
 		struct tm* curr_tm;
 		curr_time = time(NULL);
@@ -390,11 +397,39 @@ void fourthmenu() {
 			price = 250000;
 		}
 
-		ofstream fout{ "fourthmenu.txt" };
-		fout << user_name << setw(10) << date << setw(10) << lent_time << setw(10) << price << endl;
-		fout.close();
+		bool flag = true;
+		string line;
+		int offset;
+		search1 = date;
+		search2 = to_string(lent_time);
+		ifstream fin;
+		fin.open("fourthmenu.txt");
 
-		//search = date + "          " + to_string(lent_time);
+		while (!fin.eof())
+		{
+			getline(fin, line);
+			if ((offset = line.find(search1, 0)) != string::npos) {
+				if ((offset = line.find(search2, 0)) != string::npos) {
+					flag = false;
+				}
+			}
+		}
+
+		if (curr_tm->tm_mday >= lent_day) {
+			flag = false;
+		}
+
+		if (flag) {
+			ofstream fout{ "fourthmenu.txt", ios::app };
+			fout << user_name << setw(10) << date << setw(10) << lent_time << setw(10) << price << endl;
+			fout.close();
+
+			cout << "\n\n\n\t\t\t\t\t\t\t  대관 성공";
+		}
+		else {
+			cout << "\n\n\n\t\t\t\t\t\t\t  대관 불가";
+		}
+		fin.close();
 		Sleep(1000);
 	}
 	mainpage();
