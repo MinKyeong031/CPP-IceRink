@@ -114,10 +114,6 @@ void mainpage() {
 			cout << "\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t     I C E  R I N K";
 			cout << "\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t  프로그램을 종료합니다.\n\n\n\n\n\n";
 			break;
-		default:
-			system("cls");
-			mainpage();
-			break;
 		}
 	} while (ch != '6');
 }
@@ -262,7 +258,7 @@ void thirdmenu() {
 	cin >> class_day >> class_time >> class_major;
 
 	if (class_day == 0 || class_time == 0 || class_major == "0") {
-		cout << "\n\t\t\t\t\t\t\t신청 실패";
+		cout << "\n\n\n\t\t\t\t\t\t\t신청 실패";
 	}
 	else {
 		//강습 요일
@@ -342,7 +338,7 @@ int firstMonth(int year, int month)
 void printcalendar(int year, int month)
 {
 	int startday, enter;
-	int space = (firstyear(year) + firstMonth(year, month)) % 7;
+	int space = (firstyear(year) + firstMonth(year, month-1)) % 7;
 	enter = space;
 	for (startday = 0; startday < space; startday++) {
 		cout << "    ";
@@ -403,7 +399,7 @@ void fourthmenu() {
 	//달력 출력
 	print_cal();
 	
-	cout << "\n\t\t\t\t\t\t    시간\t\t  가격";
+	cout << "\n\n\t\t\t\t\t\t    시간\t\t  가격";
 	cout << "\n\n\t\t\t\t\t\t06:00~08:00\t\t150000원";
 	cout << "\n\n\t\t\t\t\t\t08:00~10:00\t\t200000원";
 	cout << "\n\n\t\t\t\t\t\t18:00~20:00\t\t250000원";
@@ -501,12 +497,15 @@ void fifthmenu() {
 	switch (ch)
 	{
 	case '1':
+		system("cls");
 		fifthmenu_ticket();
 		break;
 	case '2':
+		system("cls");
 		fifthmenu_class();
 		break;
 	case '3':
+		system("cls");
 		fifthmenu_lent();
 		break;
 	default:
@@ -641,7 +640,7 @@ void fifthmenu_lent() {
 		//이름에 해당하는 내용 출력
 		//대관 기록
 		cout << "\n =======================================================================================================================\n";
-		cout << "\n\t\t\t\t\t이름\t   요일   \t시간\t금액\n\n";
+		cout << "\n\t\t\t\t\t이름\t\t요일\t\t시간\t금액\n\n";
 
 		string line;
 		int offset;
