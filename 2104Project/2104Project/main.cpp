@@ -180,15 +180,35 @@ void firstmenu_money() {
 }
 
 
+class User {
+public:
+	string user_name;
+};
+
+class User2 :public User {
+public:
+	char choice;
+	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0, member = 0, sum = 0;
+};
+class User3 :public User {
+public:
+	int class_day = 0, class_time = 0, sum = 0;
+	string class_major = "";
+	string class_d;
+};
+class User4 :public User {
+public:
+	string user_name;
+	int price = 0;
+	int lent_day = 0, lent_time = 0;
+};
 
 
 //매표 화면
 void secondmenu() {
 	cout << "하나라도 0을 입력할 시 화면 취소";
-
-	string user_name;
-	char choice;
-	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0, member = 0, sum = 0;
+	
+	User2 user;
 
 	cout << "\n\n\n\t\t\t\t\t\t\t   매표";
 	cout << "\n\n\n\t\t\t\t\t   ①입장료\t②스케이트화 대여료";
@@ -198,33 +218,33 @@ void secondmenu() {
 	cout << "\n\n\n\t\t\t ①+②\t\t ⓖ3000원\t\tⓗ5000원\tⓘ7000원";
 
 	cout << "\n\n\n\t\t\t\t\t\t 이름 >> ";
-	cin >> user_name;
+	cin >> user.user_name;
 
 	cout << "\n\t\t\t\t\t\t ⓐ / ⓑ / ⓒ >> ";
-	cin >> ticket_a >> ticket_b >> ticket_c;
+	cin >> user.ticket_a >> user.ticket_b >> user.ticket_c;
 	cout << "\n\t\t\t\t\t\t ⓓ / ⓔ / ⓕ >> ";
-	cin >> ticket_d >> ticket_e >> ticket_f;
+	cin >> user.ticket_d >> user.ticket_e >> user.ticket_f;
 	cout << "\n\t\t\t\t\t\t ⓖ / ⓗ / ⓘ >> ";
-	cin >> ticket_g >> ticket_h >> ticket_i;
+	cin >> user.ticket_g >> user.ticket_h >> user.ticket_i;
 
-	if (ticket_a == 0 && ticket_b == 0 && ticket_c == 0 && ticket_d == 0 && ticket_e == 0 && ticket_f == 0 && ticket_g == 0 && ticket_h == 0 && ticket_i == 0) {
+	if (user.ticket_a == 0 && user.ticket_b == 0 && user.ticket_c == 0 && user.ticket_d == 0 && user.ticket_e == 0 && user.ticket_f == 0 && user.ticket_g == 0 && user.ticket_h == 0 && user.ticket_i == 0) {
 		cout << "\n\t\t\t\t\t\t\t매표 실패";
 	}
 	else {
 		//인원 수 구함
-		member = ticket_a + ticket_b + ticket_c + ticket_d + ticket_e + ticket_f + ticket_g + ticket_h + ticket_i;
+		user.member = user.ticket_a + user.ticket_b + user.ticket_c + user.ticket_d + user.ticket_e + user.ticket_f + user.ticket_g + user.ticket_h + user.ticket_i;
 		//총 금액 구함
-		sum = ticket_a * 2000 + ticket_b * 3000 + ticket_c * 4000 + ticket_d * 2000 + ticket_e * 3000 + ticket_f * 4000 + ticket_g * 3000 + ticket_h * 5000 + ticket_i * 7000;
+		user.sum = user.ticket_a * 2000 + user.ticket_b * 3000 + user.ticket_c * 4000 + user.ticket_d * 2000 + user.ticket_e * 3000 + user.ticket_f * 4000 + user.ticket_g * 3000 + user.ticket_h * 5000 + user.ticket_i * 7000;
 
 		//20인 이상 할인 10%
-		if (member >= 20) {
-			sum *= 0.9;
+		if (user.member >= 20) {
+			user.sum *= 0.9;
 		}
 
 		//파일 입력
 		ofstream secondtxt{ "secondmenu.txt", ios::app };
-		secondtxt << user_name << "\t" << ticket_a << "\t" << ticket_b << "\t" << ticket_c << "\t" << ticket_d << "\t" << ticket_e
-			<< "\t" << ticket_f << "\t" << ticket_g << "\t" << ticket_h << "\t" <<  ticket_i << "\t" << sum << endl;
+		secondtxt << user.user_name << "\t" << user.ticket_a << "\t" << user.ticket_b << "\t" << user.ticket_c << "\t" << user.ticket_d << "\t" << user.ticket_e
+			<< "\t" << user.ticket_f << "\t" << user.ticket_g << "\t" << user.ticket_h << "\t" << user.ticket_i << "\t" << user.sum << endl;
 		secondtxt.close();
 
 		cout << "\n\t\t\t\t\t\t\t매표 성공";
@@ -236,14 +256,11 @@ void secondmenu() {
 }
 
 
-
-
 //단체 강습 화면
 void thirdmenu() {
 	cout << "하나라도 0을 입력할 시 화면 취소";
 
-	int class_day = 0, class_time = 0, sum = 0;
-	string class_major = "", user_name;
+	User3 user;
 
 	cout << "\n\n\n\t\t\t\t\t\t\t\t단체 강습";
 	cout << "\n\n\n\t\t\t\t\t\t①월, 목\t ②화, 금\t    ③토";
@@ -252,39 +269,37 @@ void thirdmenu() {
 	cout << "\n\n\n\t\t\t\t스피드\t\t70000원\t\t  70000원\t   40000원";
 
 	cout << "\n\n\n\n\n\t\t\t\t\t\t 이름 >> ";
-	cin >> user_name;
+	cin >> user.user_name;
 
 	cout << "\n\n\n\t\t\t\t\t\t 요일 / 시간 / 종목 >> ";
-	cin >> class_day >> class_time >> class_major;
+	cin >> user.class_day >> user.class_time >> user.class_major;
 
-	if (class_day == 0 || class_time == 0 || class_major == "0") {
+	if (user.class_day == 0 || user.class_time == 0 || user.class_major == "0") {
 		cout << "\n\n\n\t\t\t\t\t\t\t신청 실패";
 	}
 	else {
 		//강습 요일
-		string class_d;
-
-		if (class_day == 1) {
-			class_d = "월, 목";
+		if (user.class_day == 1) {
+			user.class_d = "월, 목";
 		}
-		else if (class_day == 2) {
-			class_d = "화, 금";
+		else if (user.class_day == 2) {
+			user.class_d = "화, 금";
 		}
 		else {
-			class_d = "토";
+			user.class_d = "토";
 		}
 
 		//강습료
-		if (class_day == 3) {
-			sum = 40000;
+		if (user.class_day == 3) {
+			user.sum = 40000;
 		}
 		else {
-			sum = 70000;
+			user.sum = 70000;
 		}
 
 		//파일 입력
 		ofstream thirdtxt{ "thirdmenu.txt", ios::app };
-		thirdtxt << user_name << "\t" << class_d << "\t" << class_time << "\t" << class_major << "\t" << sum << endl;
+		thirdtxt << user.user_name << "\t" << user.class_d << "\t" << user.class_time << "\t" << user.class_major << "\t" << user.sum << endl;
 		thirdtxt.close();
 
 		cout << "\n\n\n\t\t\t\t\t\t\t신청 성공";
@@ -393,8 +408,7 @@ void print_cal() {
 void fourthmenu() {
 	cout << "모두 0을 입력할 시 화면 취소";
 
-	string user_name;
-	int lent_day = 0, lent_time = 0;
+	User4 user;
 
 	//달력 출력
 	print_cal();
@@ -407,9 +421,9 @@ void fourthmenu() {
 	cout << "\n\n\t\t\t\t\t\t22:00~00:00\t\t150000원";
 
 	cout << "\n\n\n\t\t\t\t\t\t 이름 / 날짜 / 시간 >> ";
-	cin >> user_name >> lent_day >> lent_time;
+	cin >> user.user_name >> user.lent_day >> user.lent_time;
 
-	if (user_name == "0"&& lent_day == 0 && lent_time == 0) {
+	if (user.lent_day == 0 && user.lent_time == 0) {
 		cout << "\n\t\t\t\t\t\t\t대관 실패";
 	}
 	else {
@@ -423,21 +437,19 @@ void fourthmenu() {
 		curr_time = time(NULL);
 		curr_tm = localtime(&curr_time);
 
-		string date = to_string(curr_tm->tm_year + 1900) + "." + to_string(curr_tm->tm_mon + 1) + "." + to_string(lent_day);
+		string date = to_string(curr_tm->tm_year + 1900) + "." + to_string(curr_tm->tm_mon + 1) + "." + to_string(user.lent_day);
 		string search1 = date;
-		string search2 = to_string(lent_time);
-
-		int price = 0;
+		string search2 = to_string(user.lent_time);
 
 		//대관료
-		if (lent_time == 6 || lent_time == 22) {
-			price = 150000;
+		if (user.lent_time == 6 || user.lent_time == 22) {
+			user.price = 150000;
 		}
-		else if (lent_time == 8 || lent_time == 20) {
-			price = 200000;
+		else if (user.lent_time == 8 || user.lent_time == 20) {
+			user.price = 200000;
 		}
 		else {
-			price = 250000;
+			user.price = 250000;
 		}
 
 		//대관이 이미 완료된 상태일 때
@@ -462,7 +474,7 @@ void fourthmenu() {
 		if (flag) {
 			//파일 입력
 			ofstream fourthtxt_o{ "fourthmenu.txt", ios::app };
-			fourthtxt_o << user_name << "\t\t" << date << "\t" << lent_time << "\t" << price << endl;
+			fourthtxt_o << user.user_name << "\t\t" << date << "\t" << user.lent_time << "\t" << user.price << endl;
 			fourthtxt_o.close();
 
 			cout << "\n\n\n\t\t\t\t\t\t\t  대관 성공";
