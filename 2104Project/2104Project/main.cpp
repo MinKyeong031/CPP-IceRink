@@ -65,6 +65,35 @@ void remove_scrollbar() {
 	SetConsoleScreenBufferSize(handle, new_size);
 }
 
+
+
+
+//사용자 정보 클래스
+class User {
+public:
+	string user_name;
+};
+//상속받은 클래스별 사용자 정보 클래스
+class User2 :public User {
+public:
+	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0, member = 0, sum = 0;
+};
+class User3 :public User {
+public:
+	int class_day = 0, class_time = 0, sum = 0;
+	string class_major = "";
+	string class_d;
+};
+class User4 :public User {
+public:
+	string user_name;
+	int price = 0;
+	int lent_day = 0, lent_time = 0;
+};
+
+
+
+
 //시작 로딩 화면
 void start()
 {
@@ -180,28 +209,6 @@ void firstmenu_money() {
 }
 
 
-class User {
-public:
-	string user_name;
-};
-
-class User2 :public User {
-public:
-	char choice;
-	int ticket_a = 0, ticket_b = 0, ticket_c = 0, ticket_d = 0, ticket_e = 0, ticket_f = 0, ticket_g = 0, ticket_h = 0, ticket_i = 0, member = 0, sum = 0;
-};
-class User3 :public User {
-public:
-	int class_day = 0, class_time = 0, sum = 0;
-	string class_major = "";
-	string class_d;
-};
-class User4 :public User {
-public:
-	string user_name;
-	int price = 0;
-	int lent_day = 0, lent_time = 0;
-};
 
 
 //매표 화면
@@ -467,7 +474,7 @@ void fourthmenu() {
 		}
 
 		//선택한 날짜가 이미 지났다면
-		if (curr_tm->tm_mday >= lent_day) {
+		if (curr_tm->tm_mday >= user.lent_day) {
 			flag = false;
 		}
 
